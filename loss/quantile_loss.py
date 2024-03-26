@@ -31,10 +31,6 @@ class QuantileLoss:
         assert 0 < quantile < 1
         err = y_true - y_pred
 
-        if self._mask_val is not None:
-            mask = tf.cast(tf.math.not_equal(y_true, self._mask_val), tf.float32)
-            err *= mask
-
         # a * (y - y_hat)           for y_hat <= y
         # (1 - a) * (y_hat - y)     for y_hat > y
         q_loss = quantile * tf.maximum(err, 0.0) + (1.0 - quantile) * tf.maximum(
