@@ -13,6 +13,7 @@ class QuantileLoss:
 
         So, in the output you expect sequences of n_targets columns for each quantile.
         """
+        y_true = tf.cast(y_true, tf.float32)
         loss = 0.0
         for i, q in enumerate(self._quantiles):
             loss += self._q_loss(
